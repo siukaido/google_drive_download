@@ -39,6 +39,7 @@ GEM
     nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
     os (1.0.0)
+    parallel (1.17.0)
     public_suffix (3.0.3)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -58,6 +59,7 @@ PLATFORMS
 DEPENDENCIES
   color_echo (~> 3.1)
   google_drive
+  parallel (~> 1.17)
 
 BUNDLED WITH
    1.17.3
