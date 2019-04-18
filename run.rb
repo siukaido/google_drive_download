@@ -16,14 +16,9 @@ def download(basepath, file)
   filename = File.join(basepath, file.title)
   begin
     if file.is_a?(GoogleDrive::Collection)
-      begin
-        Dir.mkdir(filename)
-      rescue
-        puts "[Failed] " + filename + " ディレクトリ作成に失敗しました"
-        return
-      end
-      file.files.each do |file2|
-        download(filename, file2)
+      Dir.mkdir(filename) unless Dir.exist?(filename)
+      Parallel.each(file.files, in_threads: 5) do |file|
+        download(filename, file)
       end
     elsif file.is_a?(GoogleDrive::Spreadsheet)
       filename += ".csv"
@@ -31,7 +26,7 @@ def download(basepath, file)
     else
       file.download_to_file(filename)
     end
-    puts "[Successful] " + file.title + " を " + filename + " にダウンロードしました"
+    puts "[Successful] Copy " + sprintf("%-20s", file.title) + "\t -> " + filename
   rescue => e
     puts "[Failed] " + file.title + " のダウンロードに失敗しました"
     p e
