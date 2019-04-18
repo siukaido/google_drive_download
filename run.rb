@@ -19,6 +19,8 @@ def download(basepath, file)
       begin
         Dir.mkdir(filename)
       rescue
+        puts "[Failed] " + filename + " ディレクトリ作成に失敗しました"
+        return
       end
       file.files.each do |file2|
         download(filename, file2)
