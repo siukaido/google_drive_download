@@ -4,7 +4,7 @@ require "color_echo"
 require "parallel"
 require "optparse";
 
-THREAD_COUNT = 2
+THREAD_COUNT = 1
 
 def usage
   puts "Usage: ruby run.rb [OPTION]... <SourceURL> <DistPath>"
