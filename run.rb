@@ -4,6 +4,8 @@ require "color_echo"
 require "parallel"
 require "optparse";
 
+THREAD_COUNT = 2
+
 def usage
   puts "Usage: ruby run.rb [OPTION]... <SourceURL> <DistPath>"
   puts
@@ -17,7 +19,7 @@ def download(basepath, file)
   begin
     if file.is_a?(GoogleDrive::Collection)
       Dir.mkdir(filename) unless Dir.exist?(filename)
-      Parallel.each(file.files, in_threads: 5) do |file|
+      Parallel.each(file.files, in_threads: THREAD_COUNT) do |file|
         download(filename, file)
       end
     elsif file.is_a?(GoogleDrive::Spreadsheet)
@@ -61,7 +63,7 @@ rescue => e
   exit 1
 end
 
-Parallel.each(collection.files, in_threads: 5) do |file|
+Parallel.each(collection.files, in_threads: THREAD_COUNT) do |file|
   if params["name"]
     next unless file.title.match(params["name"])
   end
