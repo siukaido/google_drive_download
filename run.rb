@@ -22,11 +22,14 @@ def download(basepath, file)
       Parallel.each(file.files, in_threads: THREAD_COUNT) do |file|
         download(filename, file)
       end
-    elsif file.is_a?(GoogleDrive::Spreadsheet)
-      filename += ".csv"
-      file.export_as_file(filename, "text/csv")
     else
-      file.download_to_file(filename)
+      puts "[Start] " + file.title
+      if file.is_a?(GoogleDrive::Spreadsheet)
+        filename += ".csv"
+        file.export_as_file(filename, "text/csv")
+      else
+        file.download_to_file(filename)
+      end
     end
     puts "[Successful] Copy " + sprintf("%-20s", file.title) + "\t -> " + filename
   rescue => e
