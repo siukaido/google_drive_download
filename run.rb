@@ -1,7 +1,6 @@
 require "bundler/setup"
 require "google_drive"
 require "color_echo"
-require "parallel"
 require "optparse";
 
 THREAD_COUNT = 1
@@ -19,7 +18,7 @@ def download(basepath, file)
   begin
     if file.is_a?(GoogleDrive::Collection)
       Dir.mkdir(filename) unless Dir.exist?(filename)
-      Parallel.each(file.files, in_threads: THREAD_COUNT) do |file|
+      file.files.each do |file|
         download(filename, file)
       end
     else
@@ -66,7 +65,7 @@ rescue => e
   exit 1
 end
 
-Parallel.each(collection.files, in_threads: THREAD_COUNT) do |file|
+collection.files.each do |file|
   if params["name"]
     next unless file.title.match(params["name"])
   end
