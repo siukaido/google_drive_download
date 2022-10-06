@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.6.0)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     color_echo (3.1.1)
     declarative (0.0.10)
     declarative-option (0.1.0)
@@ -39,8 +39,7 @@ GEM
     nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
     os (1.0.0)
-    parallel (1.17.0)
-    public_suffix (3.0.3)
+    public_suffix (5.0.0)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -59,7 +58,6 @@ PLATFORMS
 DEPENDENCIES
   color_echo (~> 3.1)
   google_drive
-  parallel (~> 1.17)
 
 BUNDLED WITH
    1.17.3
